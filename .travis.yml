@@ -1,0 +1,11 @@
+sudo: required
+services:
+  - docker
+
+
+before_install:
+  - docker build -t lesley/docker-react -f Dockerfile.dev . #tag: lesley/docker-react避免使用container-id
+  
+script:
+  - docker run lesley/docker-react npm run test -- --coverage #terminal命令，npm run test重写启动容器时的命令， -- --coverage让test结束后自动结束，而不是等待输入
+  
