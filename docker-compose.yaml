@@ -1,0 +1,15 @@
+version: '3'
+services:
+    web:
+        build: 
+            context: . # build需要的文件,相当于docker build .
+            dockerfile: Dockerfile.dev
+        ports:
+            - "3000:3000" #本机：容器
+        volumes:
+            - /usr/app/node_modules #don't map
+            - .:/usr/app
+    #Test:
+    #   ***
+    #   command: ["npm","run", "test"] 等同于docker run <container-id> npm run test, 避免container-id的输入
+        

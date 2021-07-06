@@ -1,0 +1,15 @@
+#use an existing docker image as a base
+FROM node:alpine
+
+
+#下面命令会在指定路径下，并且exec直接进入指定路径
+WORKDIR /usr/app
+# 将Dockerfile, index.js拷贝到container到指定container路径, 充分利用docker缓存(这样只有当package.json发生改变了，才会重新下载npm包)
+COPY package.json .
+#Download and install a dependency 创建一个临时容器，运行该命令，安装redis，将redis拷贝到临时镜像中，删除临时容器
+#RUN apk add --update redis   
+RUN npm install
+COPY ./ ./
+#Tell the image what to do when it starts as a container
+#CMD ["redis-server"] 
+CMD ["npm", "run", "start"]
